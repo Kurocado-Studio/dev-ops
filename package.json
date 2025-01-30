@@ -13,10 +13,6 @@
   "lint-staged": {
     "*": [
       "pnpm run prettier-fix"
-    ],
-    "**/*.{ts,tsx}": [
-      "pnpm run eslint-fix",
-      "pnpm run lint"
     ]
   },
   "keywords": [],
