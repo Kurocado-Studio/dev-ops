@@ -1,0 +1,9 @@
+name: 'Vite Test'
+description: 'Runs Vite tests'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Vite Test
+      run: pnpm run test
+      shell: bash

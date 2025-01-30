@@ -1,0 +1,23 @@
+name: CI/CD Pipeline
+
+permissions:
+  contents: write
+  id-token: write
+  pages: write
+  pull-requests: write
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  lint:
+    uses: ./.github/workflows/workflow.lint-format.yml
+    secrets: inherit
+
+  document:
+    needs: lint
+    uses: ./.github/workflows/workflow.document.yml
+    secrets: inherit
