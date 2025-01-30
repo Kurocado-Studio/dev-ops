@@ -14,10 +14,10 @@ on:
 
 jobs:
   lint:
-    uses: kurocado-studio/styleguide/.github/workflows/workflow.lint.yml@main
+    uses: ./.github/workflows/workflow.lint-format.yml
     secrets: inherit
 
   document:
     needs: lint
-    uses: kurocado-studio/styleguide/.github/workflows/workflow.document.yml@main
+    uses: ./.github/workflows/workflow.document.yml
     secrets: inherit
