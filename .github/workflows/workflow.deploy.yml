@@ -1,0 +1,42 @@
+#
+# Made with ❤️ and adobo by Kurocado Studio
+# Copyright (c) 2024. All Rights Reserved.
+#
+# Learn more about Kurocado Studio: {@link https://www.kurocado.studio}
+#
+# Explore our open-source projects: {@link https://github.com/kurocado-studio}
+#
+on:
+  workflow_call:
+    inputs:
+      branch_name:
+        required: true
+        type: string
+    secrets:
+      fly_api_token:
+        required: true
+
+jobs:
+  Checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Branch Name
+        run: |
+          echo "Branch Name: ${{ inputs.branch_name }}"
+
+  deploy:
+    runs-on: ubuntu-latest
+    if: |
+      inputs.branch_name == 'main' || 
+      inputs.branch_name == 'dev'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Deploy
+        uses: kurocado-studio/styleguide/.github/actions/deploy@main
+        with:
+          fly_api_token: ${{ secrets.fly_api_token }}

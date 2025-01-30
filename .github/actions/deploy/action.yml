@@ -1,0 +1,27 @@
+#
+# Made with ❤️ and adobo by Kurocado Studio
+# Copyright (c) 2024. All Rights Reserved.
+#
+# Learn more about Kurocado Studio: {@link https://www.kurocado.studio}
+#
+# Explore our open-source projects: {@link https://github.com/kurocado-studio}
+#
+name: 'Deploy'
+description: 'Deploys the application to Fly.io'
+
+inputs:
+  fly_api_token:
+    description: 'Fly.io API token'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Flyctl
+      uses: superfly/flyctl-actions/setup-flyctl@master
+
+    - name: Deploy to Fly.io
+      shell: bash
+      run: flyctl deploy --remote-only
+      env:
+        FLY_API_TOKEN: ${{ inputs.fly_api_token }}

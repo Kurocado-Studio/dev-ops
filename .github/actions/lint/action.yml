@@ -1,0 +1,26 @@
+#
+# Made with ❤️ and adobo by Kurocado Studio
+# Copyright (c) 2024. All Rights Reserved.
+#
+# Learn more about Kurocado Studio: {@link https://www.kurocado.studio}
+#
+# Explore our open-source projects: {@link https://github.com/kurocado-studio}
+#
+name: 'Lint Code'
+description: 'Runs Commitlint, ESLint, and Prettier to ensure code quality.'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Commitlint
+      shell: bash
+      run: |
+        git log -1 --pretty=%B | pnpm exec commitlint
+
+    - name: ESLint
+      shell: bash
+      run: pnpm eslint . --max-warnings=0
+
+    - name: Prettier
+      shell: bash
+      run: pnpm prettier --check .

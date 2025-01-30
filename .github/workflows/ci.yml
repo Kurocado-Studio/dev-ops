@@ -1,0 +1,31 @@
+#
+# Made with ❤️ and adobo by Kurocado Studio
+# Copyright (c) 2024. All Rights Reserved.
+#
+# Learn more about Kurocado Studio: {@link https://www.kurocado.studio}
+#
+# Explore our open-source projects: {@link https://github.com/kurocado-studio}
+#
+name: CI/CD Pipeline
+
+permissions:
+  contents: write
+  id-token: write
+  pages: write
+  pull-requests: write
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  lint:
+    uses: kurocado-studio/styleguide/.github/workflows/workflow.lint.yml@main
+    secrets: inherit
+
+  document:
+    needs: lint
+    uses: kurocado-studio/styleguide/.github/workflows/workflow.document.yml@main
+    secrets: inherit
