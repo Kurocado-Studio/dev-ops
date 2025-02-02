@@ -12,15 +12,18 @@ runs:
 
     - name: Remove Cached Corepack (If Exists)
       shell: bash
-      run: npm uninstall -g corepack || true
+      run: |
+        npm uninstall -g corepack || true
 
-    - name: Install PNPM Manually
+    - name: Install pnpm
       shell: bash
-      run: npm install -g pnpm
+      run: |
+        npm install -g pnpm
 
     - name: Verify PNPM Installation
       shell: bash
-      run: pnpm --version
+      run: |
+        pnpm --version
 
     - name: Install Dependencies
       shell: bash
