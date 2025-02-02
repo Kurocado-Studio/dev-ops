@@ -12,7 +12,7 @@ jobs:
           fetch-depth: 0
 
       - name: Install Dependencies
-        uses: kurocado-studio/styleguide/.github/actions/install@main
+        uses: kurocado-studio/dev-ops/.github/actions/install@main
 
       - name: Test
-        uses: kurocado-studio/styleguide/.github/actions/test@main
+        uses: kurocado-studio/dev-ops/.github/actions/test@main

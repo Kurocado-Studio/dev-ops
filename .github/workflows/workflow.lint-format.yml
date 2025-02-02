@@ -12,7 +12,7 @@ jobs:
           fetch-depth: 0
 
       - name: Install
-        uses: ./.github/actions/install
+        uses: kurocado-studio/dev-ops/.github/actions/install
 
       - name: Lint Format
-        uses: ./.github/actions/lint-format
+        uses: kurocado-studio/dev-ops/.github/actions/lint-format

@@ -29,6 +29,6 @@ jobs:
           fetch-depth: 0
 
       - name: Deploy
-        uses: kurocado-studio/styleguide/.github/actions/deploy@main
+        uses: kurocado-studio/dev-ops/.github/actions/deploy@main
         with:
           fly_api_token: ${{ secrets.fly_api_token }}
