@@ -8,14 +8,20 @@ runs:
       uses: actions/setup-node@v4
       with:
         node-version: 20
+        cache: 'pnpm'
 
-    - name: Install pnpm
+    - name: Remove Cached Corepack (If Exists)
       shell: bash
-      run: |
-        npm install -g pnpm
+      run: npm uninstall -g corepack || true
 
-    - name: Install dependencies
+    - name: Install PNPM Manually
       shell: bash
-      run: |
-        corepack enable
-        pnpm install --frozen-lockfile --prod=false
+      run: npm install -g pnpm
+
+    - name: Verify PNPM Installation
+      shell: bash
+      run: pnpm --version
+
+    - name: Install Dependencies
+      shell: bash
+      run: pnpm install --frozen-lockfile --prod=false
