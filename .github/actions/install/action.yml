@@ -10,10 +10,10 @@ runs:
         node-version: 20
         cache: 'pnpm'
 
-    - name: Remove Cached Corepack (If Exists)
-      shell: bash
-      run: |
-        npm uninstall -g corepack || true
+    #    - name: Remove Cached Corepack (If Exists)
+    #      shell: bash
+    #      run: |
+    #        npm uninstall -g corepack || true
 
     - name: Install pnpm
       shell: bash
