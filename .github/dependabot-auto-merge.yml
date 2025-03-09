@@ -1,0 +1,7 @@
+name: Dependabot Auto-Merge
+on: pull_request
+
+jobs:
+  dependabot-auto-merge:
+    uses: kurocado-studio/dev-ops/.github/workflows/workflow.dependabot-auto-merge.yml@main
+    secrets: inherit
