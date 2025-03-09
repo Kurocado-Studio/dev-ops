@@ -16,7 +16,7 @@ importers:
         version: 19.0.3
       '@kurocado-studio/styleguide':
         specifier: 1.10.3
-        version: 1.10.3(@commitlint/cli@19.0.3(@types/node@20.5.0)(typescript@5.7.2))(@commitlint/config-conventional@19.0.3)(@testing-library/jest-dom@6.6.3)(@testing-library/react@16.2.0(@testing-library/dom@10.4.0)(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@testing-library/user-event@14.6.1(@testing-library/dom@10.4.0))(@vitejs/plugin-react@4.3.4(vite@5.4.14(@types/node@20.5.0)))(eslint@9.16.0(jiti@2.4.2))(husky@9.0.11)(prettier@3.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.32.1)(semantic-release@23.1.1(typescript@5.7.2))(typescript@5.7.2)(vite@5.4.14(@types/node@20.5.0))(vitest-axe@0.1.0(vitest@2.1.8(@types/node@20.5.0)(jsdom@25.0.1)))(vitest@2.1.8(@types/node@20.5.0)(jsdom@25.0.1))
+        version: 1.10.3(@commitlint/cli@19.0.3(@types/node@20.5.0)(typescript@5.7.2))(@commitlint/config-conventional@19.0.3)(@testing-library/jest-dom@6.6.3)(@testing-library/react@16.2.0(@testing-library/dom@10.4.0)(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@testing-library/user-event@14.6.1(@testing-library/dom@10.4.0))(@vitejs/plugin-react@4.3.4(vite@5.4.14(@types/node@20.5.0)))(eslint@9.16.0(jiti@2.4.2))(husky@9.1.7)(prettier@3.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.32.1)(semantic-release@23.1.1(typescript@5.7.2))(typescript@5.7.2)(vite@5.4.14(@types/node@20.5.0))(vitest-axe@0.1.0(vitest@2.1.8(@types/node@20.5.0)(jsdom@25.0.1)))(vitest@2.1.8(@types/node@20.5.0)(jsdom@25.0.1))
       commitlint:
         specifier: 19.8.0
         version: 19.8.0(@types/node@20.5.0)(typescript@5.7.2)
@@ -24,8 +24,8 @@ importers:
         specifier: 9.16.0
         version: 9.16.0(jiti@2.4.2)
       husky:
-        specifier: 9.0.11
-        version: 9.0.11
+        specifier: 9.1.7
+        version: 9.1.7
       lint-staged:
         specifier: 15.4.3
         version: 15.4.3
@@ -3236,8 +3236,8 @@ packages:
     resolution: {integrity: sha512-/1/GPCpDUCCYwlERiYjxoczfP0zfvZMU/OWgQPMya9AbAE24vseigFdhAMObpc8Q4lc/kjutPfUddDYyAmejnA==}
     engines: {node: '>=18.18.0'}
 
-  husky@9.0.11:
-    resolution: {integrity: sha512-AB6lFlbwwyIqMdHYhwPe+kjOC3Oc5P3nThEoW/AaO2BX3vJDjWPFxYLxokUZOo6RNX20He3AaT8sESs9NJcmEw==}
+  husky@9.1.7:
+    resolution: {integrity: sha512-5gs5ytaNjBrh5Ow3zrvdUUY+0VxIuWVL4i9irt6friV+BqdCfmV11CQTWMiBYWHbXhco+J1kHfTOUkePhCDvMA==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -6784,7 +6784,7 @@ snapshots:
 
   '@jspm/core@2.0.1': {}
 
-  '@kurocado-studio/styleguide@1.10.3(@commitlint/cli@19.0.3(@types/node@20.5.0)(typescript@5.7.2))(@commitlint/config-conventional@19.0.3)(@testing-library/jest-dom@6.6.3)(@testing-library/react@16.2.0(@testing-library/dom@10.4.0)(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@testing-library/user-event@14.6.1(@testing-library/dom@10.4.0))(@vitejs/plugin-react@4.3.4(vite@5.4.14(@types/node@20.5.0)))(eslint@9.16.0(jiti@2.4.2))(husky@9.0.11)(prettier@3.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.32.1)(semantic-release@23.1.1(typescript@5.7.2))(typescript@5.7.2)(vite@5.4.14(@types/node@20.5.0))(vitest-axe@0.1.0(vitest@2.1.8(@types/node@20.5.0)(jsdom@25.0.1)))(vitest@2.1.8(@types/node@20.5.0)(jsdom@25.0.1))':
+  '@kurocado-studio/styleguide@1.10.3(@commitlint/cli@19.0.3(@types/node@20.5.0)(typescript@5.7.2))(@commitlint/config-conventional@19.0.3)(@testing-library/jest-dom@6.6.3)(@testing-library/react@16.2.0(@testing-library/dom@10.4.0)(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@testing-library/user-event@14.6.1(@testing-library/dom@10.4.0))(@vitejs/plugin-react@4.3.4(vite@5.4.14(@types/node@20.5.0)))(eslint@9.16.0(jiti@2.4.2))(husky@9.1.7)(prettier@3.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.32.1)(semantic-release@23.1.1(typescript@5.7.2))(typescript@5.7.2)(vite@5.4.14(@types/node@20.5.0))(vitest-axe@0.1.0(vitest@2.1.8(@types/node@20.5.0)(jsdom@25.0.1)))(vitest@2.1.8(@types/node@20.5.0)(jsdom@25.0.1))':
     dependencies:
       '@babel/core': 7.26.7
       '@babel/eslint-parser': 7.26.5(@babel/core@7.26.7)(eslint@9.16.0(jiti@2.4.2))
@@ -6832,7 +6832,7 @@ snapshots:
       eslint-plugin-unicorn: 51.0.1(eslint@9.16.0(jiti@2.4.2))
       eslint-plugin-vitest: 0.5.4(@typescript-eslint/eslint-plugin@8.22.0(@typescript-eslint/parser@8.22.0(eslint@9.16.0(jiti@2.4.2))(typescript@5.7.2))(eslint@9.16.0(jiti@2.4.2))(typescript@5.7.2))(eslint@9.16.0(jiti@2.4.2))(typescript@5.7.2)(vitest@2.1.8(@types/node@20.5.0)(jsdom@25.0.1))
       globals: 15.14.0
-      husky: 9.0.11
+      husky: 9.1.7
       jsdom: 25.0.1
       lint-staged: 15.4.3
       prettier: 3.3.3
@@ -9889,7 +9889,7 @@ snapshots:
 
   human-signals@8.0.0: {}
 
-  husky@9.0.11: {}
+  husky@9.1.7: {}
 
   iconv-lite@0.4.24:
     dependencies:
