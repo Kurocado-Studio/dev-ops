@@ -1,7 +1,11 @@
 name: Dependabot Auto-Merge
 
 on:
-  workflow_call:
+  workflow_run:
+    # Must match the exact name of the CI/CD workflow
+    workflows: ['CI/CD Pipeline']
+    types:
+      - completed
 
 permissions:
   contents: write
@@ -10,30 +14,32 @@ permissions:
 jobs:
   dependabot-auto-merge:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.user.login == 'dependabot[bot]'
-
+    if: >
+      github.event.workflow_run.conclusion == 'success'
     steps:
+      - name: Dependabot checks
+        id: check-dependabot
+        run: |
+          PR_URL=$(gh api repos/${{ github.repository }}/pulls --jq '.[] | select(.head.sha=="${{ github.event.workflow_run.head_sha }}") | .html_url')
+          PR_AUTHOR=$(gh api repos/${{ github.repository }}/pulls --jq '.[] | select(.head.sha=="${{ github.event.workflow_run.head_sha }}") | .user.login')
+
+          echo "PR_URL=${PR_URL}" >> $GITHUB_ENV
+          echo "PR_AUTHOR=${PR_AUTHOR}" >> $GITHUB_ENV
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Exit if PR was not created by Dependabot
+        if: env.PR_AUTHOR != 'dependabot[bot]'
+        run: exit 1
+
       - name: Fetch Dependabot metadata
         id: metadata
         uses: dependabot/fetch-metadata@v1
         with:
           github-token: '${{ secrets.GITHUB_TOKEN }}'
 
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Lint
-        uses: kurocado-studio/dev-ops/.github/actions/lint@main
-
-      - name: Test
-        uses: kurocado-studio/dev-ops/.github/actions/test@main
-
-      - name: Build
-        run: pnpm build
-
       - name: Attempt Squash Merge
         if: success()
         run: gh pr merge --squash "$PR_URL" --merge --auto
         env:
-          PR_URL: ${{ github.event.pull_request.html_url }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
