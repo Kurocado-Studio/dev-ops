@@ -8,7 +8,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  dependabot:
+  dependabot-auto-merge:
     runs-on: ubuntu-latest
     if: github.event.pull_request.user.login == 'dependabot[bot]'
     steps:
@@ -18,21 +18,18 @@ jobs:
         with:
           github-token: '${{ secrets.GITHUB_TOKEN }}'
 
-      - name: Enable auto-merge for Dependabot PRs
-        run: gh pr merge --auto --merge "$PR_URL"
-        env:
-          PR_URL: ${{ github.event.pull_request.html_url }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: lint
+        uses: kurocado-studio/dev-ops/.github/workflows/workflow.lint.yml@main
 
-      - name: Mark PR for Auto-Merge
-        run: gh pr edit "$PR_URL" --add-label "automerge"
-        env:
-          PR_URL: ${{ github.event.pull_request.html_url }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: test
+        uses: kurocado-studio/dev-ops/.github/workflows/workflow.test.yml@main
+
+      - name: build
+        run: pnpm build
 
       - name: Attempt Squash Merge
-        if: failure()
-        run: gh pr merge --squash "$PR_URL"
+        if: success()
+        run: gh pr merge --squash "$PR_URL" --merge --auto
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
