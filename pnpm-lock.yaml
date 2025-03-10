@@ -12,11 +12,11 @@ importers:
         specifier: 19.8.0
         version: 19.8.0(@types/node@20.5.0)(typescript@5.7.3)
       '@commitlint/config-conventional':
-        specifier: 19.0.3
-        version: 19.0.3
+        specifier: 19.8.0
+        version: 19.8.0
       '@kurocado-studio/styleguide':
         specifier: 2.3.0
-        version: 2.3.0(@babel/core@7.26.9)(@commitlint/cli@19.8.0(@types/node@20.5.0)(typescript@5.7.3))(@commitlint/config-conventional@19.0.3)(@remix-run/react@2.15.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.3))(eslint@9.22.0(jiti@2.4.2))(husky@9.1.7)(jiti@2.4.2)(prettier@3.5.3)(rollup@4.35.0)(semantic-release@23.1.1(typescript@5.7.3))(typescript@5.7.3)(vite@6.2.1(@types/node@20.5.0)(jiti@2.4.2)(yaml@2.7.0))(vitest@2.1.8(@types/node@20.5.0)(jsdom@25.0.1))(yaml@2.7.0)
+        version: 2.3.0(@babel/core@7.26.9)(@commitlint/cli@19.8.0(@types/node@20.5.0)(typescript@5.7.3))(@commitlint/config-conventional@19.8.0)(@remix-run/react@2.15.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.3))(eslint@9.22.0(jiti@2.4.2))(husky@9.1.7)(jiti@2.4.2)(prettier@3.5.3)(rollup@4.35.0)(semantic-release@23.1.1(typescript@5.7.3))(typescript@5.7.3)(vite@6.2.1(@types/node@20.5.0)(jiti@2.4.2)(yaml@2.7.0))(vitest@2.1.8(@types/node@20.5.0)(jsdom@25.0.1))(yaml@2.7.0)
       commitlint:
         specifier: 19.8.0
         version: 19.8.0(@types/node@20.5.0)(typescript@5.7.3)
@@ -205,8 +205,8 @@ packages:
     engines: {node: '>=v18'}
     hasBin: true
 
-  '@commitlint/config-conventional@19.0.3':
-    resolution: {integrity: sha512-vh0L8XeLaEzTe8VCxSd0gAFvfTK0RFolrzw4o431bIuWJfi/yRCHJlsDwus7wW2eJaFFDR0VFXJyjGyDQhi4vA==}
+  '@commitlint/config-conventional@19.8.0':
+    resolution: {integrity: sha512-9I2kKJwcAPwMoAj38hwqFXG0CzS2Kj+SAByPUQ0SlHTfb7VUhYVmo7G2w2tBrqmOf7PFd6MpZ/a1GQJo8na8kw==}
     engines: {node: '>=v18'}
 
   '@commitlint/config-validator@19.8.0':
@@ -263,10 +263,6 @@ packages:
 
   '@commitlint/top-level@19.8.0':
     resolution: {integrity: sha512-Rphgoc/omYZisoNkcfaBRPQr4myZEHhLPx2/vTXNLjiCw4RgfPR1wEgUpJ9OOmDCiv5ZyIExhprNLhteqH4FuQ==}
-    engines: {node: '>=v18'}
-
-  '@commitlint/types@19.5.0':
-    resolution: {integrity: sha512-DSHae2obMSMkAtTBSOulg5X7/z+rGLxcXQIkg3OmWvY6wifojge5uVMydfhUvs7yQj+V7jNmRZ2Xzl8GJyqRgg==}
     engines: {node: '>=v18'}
 
   '@commitlint/types@19.8.0':
@@ -6034,9 +6030,9 @@ snapshots:
       - '@types/node'
       - typescript
 
-  '@commitlint/config-conventional@19.0.3':
+  '@commitlint/config-conventional@19.8.0':
     dependencies:
-      '@commitlint/types': 19.5.0
+      '@commitlint/types': 19.8.0
       conventional-changelog-conventionalcommits: 7.0.2
 
   '@commitlint/config-validator@19.8.0':
@@ -6125,11 +6121,6 @@ snapshots:
   '@commitlint/top-level@19.8.0':
     dependencies:
       find-up: 7.0.0
-
-  '@commitlint/types@19.5.0':
-    dependencies:
-      '@types/conventional-commits-parser': 5.0.1
-      chalk: 5.4.1
 
   '@commitlint/types@19.8.0':
     dependencies:
@@ -6472,11 +6463,11 @@ snapshots:
 
   '@jspm/core@2.1.0': {}
 
-  '@kurocado-studio/styleguide@2.3.0(@babel/core@7.26.9)(@commitlint/cli@19.8.0(@types/node@20.5.0)(typescript@5.7.3))(@commitlint/config-conventional@19.0.3)(@remix-run/react@2.15.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.3))(eslint@9.22.0(jiti@2.4.2))(husky@9.1.7)(jiti@2.4.2)(prettier@3.5.3)(rollup@4.35.0)(semantic-release@23.1.1(typescript@5.7.3))(typescript@5.7.3)(vite@6.2.1(@types/node@20.5.0)(jiti@2.4.2)(yaml@2.7.0))(vitest@2.1.8(@types/node@20.5.0)(jsdom@25.0.1))(yaml@2.7.0)':
+  '@kurocado-studio/styleguide@2.3.0(@babel/core@7.26.9)(@commitlint/cli@19.8.0(@types/node@20.5.0)(typescript@5.7.3))(@commitlint/config-conventional@19.8.0)(@remix-run/react@2.15.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.3))(eslint@9.22.0(jiti@2.4.2))(husky@9.1.7)(jiti@2.4.2)(prettier@3.5.3)(rollup@4.35.0)(semantic-release@23.1.1(typescript@5.7.3))(typescript@5.7.3)(vite@6.2.1(@types/node@20.5.0)(jiti@2.4.2)(yaml@2.7.0))(vitest@2.1.8(@types/node@20.5.0)(jsdom@25.0.1))(yaml@2.7.0)':
     dependencies:
       '@babel/eslint-parser': 7.26.8(@babel/core@7.26.9)(eslint@9.22.0(jiti@2.4.2))
       '@commitlint/cli': 19.8.0(@types/node@20.5.0)(typescript@5.7.3)
-      '@commitlint/config-conventional': 19.0.3
+      '@commitlint/config-conventional': 19.8.0
       '@eslint/js': 9.22.0
       '@remix-run/dev': 2.16.0(@remix-run/react@2.15.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.3))(@types/node@20.5.0)(jiti@2.4.2)(typescript@5.7.3)(vite@6.2.1(@types/node@20.5.0)(jiti@2.4.2)(yaml@2.7.0))(yaml@2.7.0)
       '@rushstack/eslint-patch': 1.10.5
