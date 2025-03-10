@@ -45,6 +45,6 @@ jobs:
       - name: Attempt Squash Merge
         if: success()
         run: |
-          gh pr merge "$PR_URL" --squash --merge --auto
+          gh pr merge "$PR_URL" --squash --auto
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
