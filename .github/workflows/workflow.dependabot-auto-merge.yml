@@ -1,13 +1,8 @@
-name: Dependabot Auto-Merge
+name: Dependabot Auto-Merge Workflow
 
 on:
   workflow_run:
-    # Must match the exact name of your CI/CD workflow
     workflows: ['CI/CD Pipeline']
-    inputs:
-      GITHUB_EVENT:
-        description: 'GitHub Event Object'
-        required: true
     types:
       - completed
 
@@ -21,14 +16,20 @@ jobs:
     if: github.event.workflow_run.conclusion == 'success'
 
     steps:
-      - name: Parse GitHub Event
-        id: parse_event
+      - name: Get PR Info using head_sha
+        id: get_pr_info
         run: |
-          echo "GITHUB_EVENT_JSON=${{ inputs.GITHUB_EVENT }}" >> $GITHUB_ENV
-          # Parse the JSON string into variables you need
-          PR_NUMBER=$(echo ${{ inputs.GITHUB_EVENT }} | jq -r '.pull_request.number')
-          PR_URL=$(echo ${{ inputs.GITHUB_EVENT }} | jq -r '.pull_request.html_url')
-          PR_AUTHOR=$(echo ${{ inputs.GITHUB_EVENT }} | jq -r '.pull_request.user.login')
+          # Fetch the PR details using the head_sha of the commit that triggered the workflow
+          PR_DATA=$(gh api repos/${{ github.repository }}/pulls --jq '.[] | select(.head.sha=="${{ github.event.workflow_run.head_sha }}")')
+
+          PR_NUMBER=$(echo "$PR_DATA" | jq -r '.number')
+          PR_URL=$(echo "$PR_DATA" | jq -r '.html_url')
+          PR_AUTHOR=$(echo "$PR_DATA" | jq -r '.user.login')
+
+          if [ -z "$PR_NUMBER" ]; then
+            echo "No matching PR found. Exiting."
+            exit 1
+          fi
 
           echo "PR_NUMBER=$PR_NUMBER" >> $GITHUB_ENV
           echo "PR_URL=$PR_URL" >> $GITHUB_ENV
@@ -36,7 +37,9 @@ jobs:
 
       - name: Exit if PR was not created by Dependabot
         if: env.PR_AUTHOR != 'dependabot[bot]'
-        run: exit 1
+        run: |
+          echo "The PR was not created by Dependabot. Exiting gracefully."
+          exit 0  # Exit without error (exit code 0 means success)
 
       - name: Fetch Dependabot metadata
         id: metadata
