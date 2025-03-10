@@ -19,7 +19,6 @@ jobs:
       - name: Get PR Info using head_sha
         id: get_pr_info
         run: |
-          # Fetch the PR details using the head_sha of the commit that triggered the workflow
           PR_DATA=$(gh api repos/${{ github.repository }}/pulls --jq '.[] | select(.head.sha=="${{ github.event.workflow_run.head_sha }}")')
 
           PR_NUMBER=$(echo "$PR_DATA" | jq -r '.number')
@@ -34,6 +33,8 @@ jobs:
           echo "PR_NUMBER=$PR_NUMBER" >> $GITHUB_ENV
           echo "PR_URL=$PR_URL" >> $GITHUB_ENV
           echo "PR_AUTHOR=$PR_AUTHOR" >> $GITHUB_ENV
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Exit if PR was not created by Dependabot
         if: env.PR_AUTHOR != 'dependabot[bot]'
