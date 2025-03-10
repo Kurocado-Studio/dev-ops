@@ -1,10 +1,7 @@
-name: Dependabot Auto-Merge Workflow
+name: Dependabot Auto-Merge
 
 on:
-  workflow_run:
-    workflows: ['CI/CD Pipeline']
-    types:
-      - completed
+  workflow_call:
 
 permissions:
   contents: write
