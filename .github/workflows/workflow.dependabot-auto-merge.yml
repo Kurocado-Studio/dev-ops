@@ -17,14 +17,21 @@ jobs:
     if: >
       github.event.workflow_run.conclusion == 'success'
     steps:
-      - name: Dependabot checks
-        id: check-dependabot
+      - name: Dependabot Workflow checks
         run: |
-          PR_URL=$(gh api repos/${{ github.repository }}/pulls --jq '.[] | select(.head.sha=="${{ github.event.workflow_run.head_sha }}") | .html_url')
-          PR_AUTHOR=$(gh api repos/${{ github.repository }}/pulls --jq '.[] | select(.head.sha=="${{ github.event.workflow_run.head_sha }}") | .user.login')
+          PR_DATA=$(gh api repos/${{ github.repository }}/pulls --jq '.[] | select(.head.sha=="${{ github.event.workflow_run.head_sha }}")')
+          PR_NUMBER=$(echo "$PR_DATA" | jq -r '.number')
+          PR_URL=$(echo "$PR_DATA" | jq -r '.html_url')
+          PR_AUTHOR=$(echo "$PR_DATA" | jq -r '.user.login')
 
-          echo "PR_URL=${PR_URL}" >> $GITHUB_ENV
-          echo "PR_AUTHOR=${PR_AUTHOR}" >> $GITHUB_ENV
+          if [ -z "$PR_NUMBER" ] || [ "$PR_NUMBER" == "null" ]; then
+          echo "No matching PR found. Exiting."
+          exit 1
+          fi
+
+          echo "PR_NUMBER=$PR_NUMBER" >> $GITHUB_ENV
+          echo "PR_URL=$PR_URL" >> $GITHUB_ENV
+          echo "PR_AUTHOR=$PR_AUTHOR" >> $GITHUB_ENV
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
