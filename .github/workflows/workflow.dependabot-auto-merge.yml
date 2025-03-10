@@ -2,8 +2,21 @@ name: Dependabot Auto-Merge
 
 on:
   workflow_run:
-    # Must match the exact name of the CI/CD workflow
+    # Must match the exact name of your CI/CD workflow
     workflows: ['CI/CD Pipeline']
+    inputs:
+      PR_NUMBER:
+        description: 'Pull Request Number'
+        required: true
+      PR_URL:
+        description: 'Pull Request URL'
+        required: true
+      PR_AUTHOR:
+        description: 'Pull Request Author'
+        required: true
+      GITHUB_TOKEN:
+        description: 'GitHub Token'
+        required: true
     types:
       - completed
 
@@ -14,26 +27,14 @@ permissions:
 jobs:
   dependabot-auto-merge:
     runs-on: ubuntu-latest
-    if: >
-      github.event.workflow_run.conclusion == 'success'
+    if: github.event.workflow_run.conclusion == 'success'
+
     steps:
-      - name: Dependabot Workflow checks
+      - name: Set PR Info as Environment Variables
         run: |
-          PR_DATA=$(gh api repos/${{ github.repository }}/pulls --jq '.[] | select(.head.sha=="${{ github.event.workflow_run.head_sha }}")')
-          PR_NUMBER=$(echo "$PR_DATA" | jq -r '.number')
-          PR_URL=$(echo "$PR_DATA" | jq -r '.html_url')
-          PR_AUTHOR=$(echo "$PR_DATA" | jq -r '.user.login')
-
-          if [ -z "$PR_NUMBER" ] || [ "$PR_NUMBER" == "null" ]; then
-          echo "No matching PR found. Exiting."
-          exit 1
-          fi
-
-          echo "PR_NUMBER=$PR_NUMBER" >> $GITHUB_ENV
-          echo "PR_URL=$PR_URL" >> $GITHUB_ENV
-          echo "PR_AUTHOR=$PR_AUTHOR" >> $GITHUB_ENV
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          echo "PR_NUMBER=${{ inputs.PR_NUMBER }}" >> $GITHUB_ENV
+          echo "PR_URL=${{ inputs.PR_URL }}" >> $GITHUB_ENV
+          echo "PR_AUTHOR=${{ inputs.PR_AUTHOR }}" >> $GITHUB_ENV
 
       - name: Exit if PR was not created by Dependabot
         if: env.PR_AUTHOR != 'dependabot[bot]'
@@ -43,10 +44,11 @@ jobs:
         id: metadata
         uses: dependabot/fetch-metadata@v1
         with:
-          github-token: '${{ secrets.GITHUB_TOKEN }}'
+          github-token: '${{ inputs.GITHUB_TOKEN }}'
 
       - name: Attempt Squash Merge
         if: success()
-        run: gh pr merge --squash "$PR_URL" --merge --auto
+        run: |
+          gh pr merge "$PR_URL" --squash --merge --auto
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ inputs.GITHUB_TOKEN }}
