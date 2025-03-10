@@ -11,6 +11,7 @@ jobs:
   dependabot-auto-merge:
     runs-on: ubuntu-latest
     if: github.event.pull_request.user.login == 'dependabot[bot]'
+
     steps:
       - name: Fetch Dependabot metadata
         id: metadata
@@ -18,13 +19,16 @@ jobs:
         with:
           github-token: '${{ secrets.GITHUB_TOKEN }}'
 
-      - name: lint
-        uses: kurocado-studio/dev-ops/.github/workflows/workflow.lint.yml@main
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: test
-        uses: kurocado-studio/dev-ops/.github/workflows/workflow.test.yml@main
+      - name: Lint
+        uses: kurocado-studio/dev-ops/.github/actions/lint@main
 
-      - name: build
+      - name: Test
+        uses: kurocado-studio/dev-ops/.github/actions/test@main
+
+      - name: Build
         run: pnpm build
 
       - name: Attempt Squash Merge
