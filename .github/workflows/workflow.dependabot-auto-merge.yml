@@ -40,6 +40,8 @@ jobs:
         run: |
           echo "The PR was not created by Dependabot. Exiting gracefully."
           exit 0  # Exit without error (exit code 0 means success)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Fetch Dependabot metadata
         id: metadata
