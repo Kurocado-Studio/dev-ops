@@ -7,3 +7,7 @@ runs:
     - name: Vite Test
       run: pnpm run test
       shell: bash
+
+    - name: Build
+      shell: bash
+      run: pnpm exec build

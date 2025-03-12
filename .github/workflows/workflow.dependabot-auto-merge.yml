@@ -39,13 +39,6 @@ jobs:
           echo "The PR was not created by Dependabot. Exiting gracefully."
           exit 0  # Exit without error (exit code 0 means success)
 
-      - name: Install
-        uses: kurocado-studio/dev-ops/.github/actions/install@main
-
-      - name: Build
-        shell: bash
-        run: pnpm exec build
-
       - name: Attempt Squash Merge
         if: success()
         run: |
