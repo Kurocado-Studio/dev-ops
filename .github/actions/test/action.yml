@@ -10,4 +10,4 @@ runs:
 
     - name: Build
       shell: bash
-      run: pnpm exec build
+      run: pnpm run build
