@@ -4,7 +4,6 @@ on:
 permissions:
   contents: write
   pages: write
-  id-token: write
 
 env:
   INSTANCE: 'Writerside/dcs' # Name of the module (adjust for your project)
