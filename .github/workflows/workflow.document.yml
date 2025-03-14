@@ -1,3 +1,5 @@
+name: Document with Writerside
+
 on:
   workflow_call:
 

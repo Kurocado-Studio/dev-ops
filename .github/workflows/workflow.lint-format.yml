@@ -1,3 +1,5 @@
+name: Lint Formatting
+
 on:
   workflow_call:
 
