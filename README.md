@@ -64,10 +64,10 @@ sequenceDiagram
    jobs:
      lint:
        name: 'Lint Project'
-       uses: kurocado-studio/dev-ops/.github/workflows/workflow.lint.yml@main
+       uses: kurocado-studio/dev-ops/.github/workflows/lint.yml@main
 
      test:
        name: 'Test Project'
        needs: lint
-       uses: kurocado-studio/dev-ops/.github/workflows/workflow.test.yml@main
+       uses: kurocado-studio/dev-ops/.github/workflows/test.yml@main
    ```

@@ -1,0 +1,18 @@
+on:
+  workflow_call:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Install
+        uses: kurocado-studio/dev-ops/.github/actions/install@main
+
+      - name: Lint Format
+        uses: kurocado-studio/dev-ops/.github/actions/lint-format@main

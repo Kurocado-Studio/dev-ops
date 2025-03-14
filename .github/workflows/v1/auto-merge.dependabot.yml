@@ -12,5 +12,5 @@ permissions:
 
 jobs:
   dependabot-auto-merge:
-    uses: kurocado-studio/dev-ops/.github/workflows/v1/auto-merge.dependabot.yml@main
+    uses: kurocado-studio/dev-ops/.github/workflows/workflow.dependabot-auto-merge.yml@main
     secrets: inherit
