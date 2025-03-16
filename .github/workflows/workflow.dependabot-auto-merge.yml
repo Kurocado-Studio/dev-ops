@@ -3,7 +3,7 @@ name: Dependabot Auto-Merge
 on:
   workflow_call:
     secrets:
-      GITHUB_TOKEN:
+      GH_TOKEN:
         description: 'Automatically generated token that GitHub provides for every workflow run'
         required: true
 
@@ -35,7 +35,7 @@ jobs:
           echo "PR_URL=$PR_URL" >> $GITHUB_ENV
           echo "PR_AUTHOR=$PR_AUTHOR" >> $GITHUB_ENV
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Exit if PR was not created by Dependabot
         if: env.PR_AUTHOR != 'dependabot[bot]'
@@ -48,4 +48,4 @@ jobs:
         run: |
           gh pr merge "$PR_URL" --squash --auto
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}

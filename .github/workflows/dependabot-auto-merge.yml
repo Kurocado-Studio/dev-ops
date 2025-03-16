@@ -6,7 +6,7 @@ on:
     types:
       - completed
     secrets:
-      GITHUB_TOKEN:
+      GH_TOKEN:
         description: 'Automatically generated token that GitHub provides for every workflow run'
         required: true
 
@@ -18,4 +18,4 @@ jobs:
   dependabot-auto-merge:
     uses: kurocado-studio/dev-ops/.github/workflows/workflow.dependabot-auto-merge.yml@main
     secrets:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
