@@ -1,6 +1,12 @@
 name: 'Lint Code'
 description: 'Runs Commitlint, ESLint, and Prettier to ensure code quality.'
 
+inputs:
+  monorepo:
+    default: 'false'
+    description: "Set mode to 'monorepo' or 'single'."
+    required: false
+
 runs:
   using: 'composite'
   steps:
@@ -11,8 +17,22 @@ runs:
 
     - name: ESLint
       shell: bash
-      run: pnpm eslint . --max-warnings=0
+      run: |
+        if [ -n "${{ inputs.monorepo_package }}" ]; then
+          echo "Running in monrepo mode."
+          pnpm exec turbo run lint
+        else
+          echo "Running in single repository mode."
+           pnpm eslint . --max-warnings=0
+        fi
 
     - name: Prettier
       shell: bash
-      run: pnpm prettier --check .
+      run: |
+        if [ -n "${{ inputs.monorepo_package }}" ]; then
+          echo "Running in monrepo mode."
+          pnpm exec turbo run prettier-check
+        else
+          echo "Running in single repository mode."
+           pnpm prettier --check .
+        fi

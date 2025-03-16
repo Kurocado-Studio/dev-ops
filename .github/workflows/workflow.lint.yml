@@ -6,6 +6,12 @@ on:
       GH_TOKEN:
         description: 'Automatically generated token that GitHub provides for every workflow run'
         required: true
+    inputs:
+      monorepo:
+        default: false
+        description: "Set mode to 'monorepo' or 'single'."
+        required: false
+        type: boolean
 
 jobs:
   lint:
@@ -22,3 +28,5 @@ jobs:
 
       - name: Lint
         uses: kurocado-studio/dev-ops/.github/actions/lint@main
+        with:
+          monorepo: ${{ inputs.monorepo }}
