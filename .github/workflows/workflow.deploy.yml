@@ -7,8 +7,16 @@ on:
         required: true
         type: string
     secrets:
-      fly_api_token:
+      GITHUB_TOKEN:
+        description: 'Automatically generated token that GitHub provides for every workflow run'
         required: true
+      FLY_API_TOKEN:
+        description: 'Token needed to deploy the application to Fly.io'
+        required: false
+      # deprecating in favor of FLY_API_TOKEN, so marking as non required until migration is complete
+      fly_api_token:
+        description: 'Token needed to deploy the application to Fly.io'
+        required: false
 
 jobs:
   Checks:
@@ -33,4 +41,4 @@ jobs:
       - name: Deploy
         uses: kurocado-studio/dev-ops/.github/actions/deploy@main
         with:
-          fly_api_token: ${{ secrets.fly_api_token }}
+          fly_api_token: '${{ secrets.FLY_API_TOKEN || secrets.fly_api_token }}'

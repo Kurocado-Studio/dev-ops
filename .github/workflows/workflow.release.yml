@@ -10,6 +10,13 @@ on:
       branch_name:
         required: true
         type: string
+    secrets:
+      GITHUB_TOKEN:
+        description: 'Automatically generated token that GitHub provides for every workflow run'
+        required: true
+      NPM_TOKEN:
+        description: 'Token used to publish the package on NPM registry'
+        required: true
 
 jobs:
   Checks:

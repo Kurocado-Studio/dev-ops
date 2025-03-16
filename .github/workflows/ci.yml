@@ -15,9 +15,11 @@ on:
 jobs:
   lint:
     uses: kurocado-studio/dev-ops/.github/workflows/workflow.lint-format.yml@main
-    secrets: inherit
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   document:
     needs: lint
     uses: kurocado-studio/dev-ops/.github/workflows/workflow.document.yml@main
-    secrets: inherit
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

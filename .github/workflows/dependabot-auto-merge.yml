@@ -5,6 +5,10 @@ on:
     workflows: ['CI/CD Pipeline']
     types:
       - completed
+    secrets:
+      GITHUB_TOKEN:
+        description: 'Automatically generated token that GitHub provides for every workflow run'
+        required: true
 
 permissions:
   contents: write
@@ -13,4 +17,5 @@ permissions:
 jobs:
   dependabot-auto-merge:
     uses: kurocado-studio/dev-ops/.github/workflows/workflow.dependabot-auto-merge.yml@main
-    secrets: inherit
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

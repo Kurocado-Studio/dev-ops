@@ -1,16 +1,20 @@
 name: Document with Writerside
 
-on:
-  workflow_call:
-
-permissions:
-  contents: write
-  pages: write
-
 env:
   INSTANCE: 'Writerside/dcs' # Name of the module (adjust for your project)
   ARTIFACT: 'webHelpDCS2-all.zip' # Name of the artifact to be generated
   DOCKER_VERSION: '242.21870' # Specific Docker version
+
+on:
+  workflow_call:
+    secrets:
+      GITHUB_TOKEN:
+        description: 'Automatically generated token that GitHub provides for every workflow run'
+        required: true
+
+permissions:
+  contents: write
+  pages: write
 
 jobs:
   check-changes:
