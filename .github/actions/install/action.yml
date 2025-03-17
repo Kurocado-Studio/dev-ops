@@ -24,7 +24,7 @@ runs:
       run: |
         if [ "${{ inputs.monorepo }}" = "true" ]; then
           echo "Running in monorepo mode."
-          pnpm install && turbo run setup
+          pnpm install && pnpm exec turbo run setup
         else
           echo "Running in single repository mode."
           pnpm install --frozen-lockfile --prod=false
