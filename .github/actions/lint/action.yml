@@ -31,7 +31,7 @@ runs:
       run: |
         if [ "${{ inputs.monorepo }}" = "true" ]; then
           echo "Running in monorepo mode."
-          pnpm exec turbo run prettier-check
+          pnpm exec turbo run prettier:check
         else
           echo "Running in single repository mode."
            pnpm prettier --check .
