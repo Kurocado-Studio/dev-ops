@@ -45,13 +45,29 @@ jobs:
 
       - name: Install
         uses: kurocado-studio/dev-ops/.github/actions/install@main
+        with:
+          monorepo: ${{ inputs.monorepo }}
 
       - name: Build
-        run: pnpm run build
+        run: |
+          if [ "${{ inputs.monorepo }}" = "true" ]; then
+            echo "Running in monorepo mode."
+            pnpm exec turbo run build
+          else
+            echo "Running in single repository mode."
+             pnpm build
+          fi
 
       - name: Release
         id: semantic_release
-        run: npx semantic-release
+        run: |
+          if [ "${{ inputs.monorepo }}" = "true" ]; then
+            echo "Running in monorepo mode."
+            pnpm semantic-release
+          else
+            echo "Running in single repository mode."
+             npx semantic-release
+          fi
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
