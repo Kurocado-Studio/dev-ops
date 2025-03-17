@@ -19,6 +19,8 @@ jobs:
 
       - name: Install
         uses: kurocado-studio/dev-ops/.github/actions/install@main
+        with:
+          monorepo: ${{ inputs.monorepo }}
 
       - name: Lint Format
         uses: kurocado-studio/dev-ops/.github/actions/lint-format@main
