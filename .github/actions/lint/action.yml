@@ -18,8 +18,8 @@ runs:
     - name: ESLint
       shell: bash
       run: |
-        if [ -n "${{ inputs.monorepo_package }}" ]; then
-          echo "Running in monrepo mode."
+        if [ "${{ inputs.monorepo }}" = "true" ]; then
+          echo "Running in monorepo mode."
           pnpm exec turbo run lint
         else
           echo "Running in single repository mode."
@@ -29,8 +29,8 @@ runs:
     - name: Prettier
       shell: bash
       run: |
-        if [ -n "${{ inputs.monorepo_package }}" ]; then
-          echo "Running in monrepo mode."
+        if [ "${{ inputs.monorepo }}" = "true" ]; then
+          echo "Running in monorepo mode."
           pnpm exec turbo run prettier-check
         else
           echo "Running in single repository mode."
