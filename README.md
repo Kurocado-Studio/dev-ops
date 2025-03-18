@@ -24,8 +24,6 @@ Feel free to open issues or contribute to discussions — your input is valuable
   [Vitest](https://vitest.dev)
 - [Release](https://kurocado.youtrack.cloud/articles/PLA-A-3/Release) pipeline using
   [Semantic Release](https://semantic-release.gitbook.io/semantic-release)
-- [Deployment](https://kurocado.youtrack.cloud/articles/PLA-A-4/Deploy) pipeline using
-  [Fly.io](https://fly.io/)
 
 ## Workflow Execution Flow Overview
 
