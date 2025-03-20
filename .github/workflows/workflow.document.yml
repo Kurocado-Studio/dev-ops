@@ -40,7 +40,7 @@ jobs:
       - name: Build docs using Writerside Docker builder
         uses: JetBrains/writerside-github-action@v4
         with:
-          instance: 'Writerside/${{ input.instance_id }}'
+          instance: 'Writerside/${{ inputs.instance_id }}'
           artifact: ${{ env.ARTIFACT }}
           docker-version: ${{ env.DOCKER_VERSION }}
 
