@@ -1,21 +1,25 @@
 name: Document with Writerside
 
+permissions:
+  contents: write
+  id-token: write
+  pages: write
+
 env:
-  INSTANCE: 'Writerside/dcs' # Name of the module (adjust for your project)
   ARTIFACT: 'webHelpDCS2-all.zip' # Name of the artifact to be generated
   DOCKER_VERSION: '242.21870' # Specific Docker version
 
 on:
   workflow_call:
+    inputs:
+      instance_id:
+        description: 'The Writerside instance id'
+        required: true
+        type: string
     secrets:
       GH_TOKEN:
         description: 'Automatically generated token that GitHub provides for every workflow run'
         required: true
-
-permissions:
-  contents: write
-  id-token: write
-  pages: write
 
 jobs:
   document:
@@ -36,7 +40,7 @@ jobs:
       - name: Build docs using Writerside Docker builder
         uses: JetBrains/writerside-github-action@v4
         with:
-          instance: ${{ env.INSTANCE }}
+          instance: 'Writerside:${{ input.instance_id }}'
           artifact: ${{ env.ARTIFACT }}
           docker-version: ${{ env.DOCKER_VERSION }}
 
