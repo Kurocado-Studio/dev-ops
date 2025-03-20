@@ -14,7 +14,7 @@ permissions:
 jobs:
   dependabot-auto-merge:
     runs-on: ubuntu-latest
-    if: github.event.workflow_run.conclusion == 'success'
+    if: ${{ github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion == 'success' }}
 
     steps:
       - name: Get PR Info using head_sha
@@ -37,14 +37,17 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
+      - name: Debug PR Author
+        run: echo "PR_AUTHOR is '${{ env.PR_AUTHOR }}'"
+
       - name: Exit if PR was not created by Dependabot
-        if: env.PR_AUTHOR != 'dependabot[bot]'
+        if: ${{ env.PR_AUTHOR != 'dependabot[bot]' }}
         run: |
           echo "The PR was not created by Dependabot. Exiting gracefully."
           exit 0  # Exit without error (exit code 0 means success)
 
       - name: Attempt Squash Merge
-        if: success()
+        if: ${{ success() && env.PR_AUTHOR == 'dependabot[bot]' }}
         run: |
           gh pr merge "$PR_URL" --squash --auto
         env:

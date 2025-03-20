@@ -1,4 +1,4 @@
-name: Dependabot Auto-Merge Trigger
+name: Dependabot Auto-Merge
 
 on:
   workflow_run:
