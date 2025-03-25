@@ -7,4 +7,11 @@
                  start-page="starter-topic.md">
 
     <toc-element topic="starter-topic.md"/>
+    <toc-element topic="CI-CD-Workflows.md">
+        <toc-element topic="Lint.md"/>
+        <toc-element topic="Test.md"/>
+        <toc-element topic="Document.md"/>
+        <toc-element topic="Release.md"/>
+        <toc-element topic="Deploy.md"/>
+    </toc-element>
 </instance-profile>
