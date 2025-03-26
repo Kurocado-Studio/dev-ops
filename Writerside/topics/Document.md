@@ -11,15 +11,21 @@
 ## Consuming the workflow
 
 ```yaml
+name: Writerside Documentation Pipeline
+
 permissions:
   contents: write
+  id-token: write
   pages: write
+  pull-requests: write
 
 jobs:
   document:
     uses: kurocado-studio/dev-ops/.github/workflows/workflow.document.yml@main
     secrets:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    with:
+      instance_id: dcs
 ```
 
 ## Overview
