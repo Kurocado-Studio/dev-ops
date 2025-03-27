@@ -40,18 +40,15 @@ sequenceDiagram
    participant GitHubAPI as GitHub API
 
    GitHubRepo->>Runner: Trigger Writerside Documentation Workflow
-   GitHubRepo->>Runner: Detect Changes in `Writerside/**`
+   Runner->>Runner: Install Dependencies
+   Runner->>Builders: Build Docs using Writerside Docker Builder
+   Builders-->>Runner: Build Results (Artifact, report.json)
+   Runner->>Runner: Save Artifact with Build Results
+   Runner->>Runner: Unzip Artifact
+   Runner->>GitHubRepo: Configure GitHub Pages
+   Runner->>GitHubRepo: Upload Artifact to GitHub Pages
+   Runner->>GitHubRepo: Deploy to GitHub Pages
 
-   alt Workflow Proceeds
-      Runner->>Runner: Install Dependencies
-      Runner->>Builders: Build Docs using Writerside Docker Builder
-      Builders-->>Runner: Build Results (Artifact, report.json)
-      Runner->>Runner: Save Artifact with Build Results
-      Runner->>Runner: Unzip Artifact
-      Runner->>GitHubRepo: Configure GitHub Pages
-      Runner->>GitHubRepo: Upload Artifact to GitHub Pages
-      Runner->>GitHubRepo: Deploy to GitHub Pages
-   end
    alt Workflow Successful
         Runner ->> GitHubAPI: Report Workflow Success
         GitHubAPI ->> GitHubRepo: Update Status as Successful
