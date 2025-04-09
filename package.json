@@ -5,14 +5,13 @@
   "type": "module",
   "scripts": {
     "commitlint": "pnpm exec commitlint --edit",
-    "eslint-check": "eslint --max-warnings=0 .",
     "prepare": "husky install",
-    "prettier-check": "prettier --check .",
-    "prettier-fix": "prettier --check . --write"
+    "prettier:check": "prettier --check .",
+    "prettier:fix": "prettier --check . --write"
   },
   "lint-staged": {
     "*": [
-      "pnpm run prettier-fix"
+      "pnpm run prettier:fix"
     ]
   },
   "keywords": [],
