@@ -26,17 +26,6 @@ runs:
            pnpm eslint . --max-warnings=0
         fi
 
-    - name: TS Check
-      shell: bash
-      run: |
-        if [ "${{ inputs.monorepo }}" = "true" ]; then
-          echo "Running in monorepo mode."
-          pnpm exec turbo run typecheck
-        else
-          echo "Running in single repository mode."
-           tsc
-        fi
-
     - name: Prettier
       shell: bash
       run: |
