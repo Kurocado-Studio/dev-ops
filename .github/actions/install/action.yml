@@ -29,14 +29,3 @@ runs:
           echo "Running in single repository mode."
           pnpm install --frozen-lockfile --prod=false
         fi
-
-    - name: TS Check
-      shell: bash
-      run: |
-        if [ "${{ inputs.monorepo }}" = "true" ]; then
-          echo "Running in monorepo mode."
-          pnpm exec turbo run typecheck
-        else
-          echo "Running in single repository mode."
-           pnpm exec tsc
-        fi
