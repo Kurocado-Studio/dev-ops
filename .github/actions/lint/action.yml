@@ -1,5 +1,5 @@
 name: 'Lint Code'
-description: 'Runs Commitlint, ESLint, and Prettier to ensure code quality.'
+description: 'Runs Commitlint, ESLint, TS Check and Prettier to ensure code quality.'
 
 inputs:
   monorepo:
@@ -24,6 +24,17 @@ runs:
         else
           echo "Running in single repository mode."
            pnpm eslint . --max-warnings=0
+        fi
+
+    - name: TS Check
+      shell: bash
+      run: |
+        if [ "${{ inputs.monorepo }}" = "true" ]; then
+          echo "Running in monorepo mode."
+          pnpm exec turbo run typecheck
+        else
+          echo "Running in single repository mode."
+           tsc
         fi
 
     - name: Prettier
