@@ -34,7 +34,7 @@ runs:
           pnpm exec turbo run typecheck
         else
           echo "Running in single repository mode."
-           tsc
+           tsc --noEmit true
         fi
 
     - name: Prettier
