@@ -38,8 +38,8 @@ jobs:
         inputs.branch_name == 'main' ||
         inputs.branch_name == 'alpha' ||
         inputs.branch_name == 'beta' ||
-        inputs.branch_name == 'canary' ||
-        inputs.branch_name == 'pre/rc'
+        inputs.branch_name == 'develop' ||
+        inputs.branch_name == 'pre'
       )
     steps:
       - name: Checkout
