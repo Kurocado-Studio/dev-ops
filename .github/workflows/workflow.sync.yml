@@ -1,0 +1,32 @@
+name: Sync develop with main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+on:
+  workflow_call:
+    inputs:
+      branch_name:
+        required: true
+        type: string
+    secrets:
+      GH_TOKEN:
+        required: true
+
+jobs:
+  sync-develop:
+    if: ${{ inputs.branch_name == 'main' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          fetch-depth: 0
+
+      - name: Sync branches
+        uses: ./.github/actions/sync
+        with:
+          branch_name: ${{ inputs.branch_name }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
