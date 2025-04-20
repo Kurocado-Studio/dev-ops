@@ -1,55 +1,83 @@
-# Kurocado Studio DevOps
+# Kurocado Studio DevOps Toolkit
 
-Please visit [the documentation](https://kurocado-studio.github.io/dev-ops)
+[![CI/CD Main Pipeline](https://github.com/Kurocado-Studio/dev-ops/actions/workflows/ci.push.yml/badge.svg)](https://github.com/Kurocado-Studio/dev-ops/actions/workflows/ci.push.yml)
 
-## Repository layout (overview)
+## Why this repo exists
 
-```
+Keeping CI/CD logic **close to the code** but **decoupled from individual projects** lowers
+onboarding time and enforces quality standards across every Kurocado Studio engagement—from rapid
+prototypes to enterprise SaaS. This repository centralises all DevOps primitives we rely on every
+day so that shipping reliable software is a _default_, not an after‑thought.
+
+> If you need a turnkey pipeline for a new React, Vue, NestJS or Remix app, you can drop‑in these
+> workflows and start deploying in minutes.
+
+## Feature highlights
+
+| Area                 | What you get                                                                                                         |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| **Automation**       | Composite actions for install, lint, type‑check, unit tests, and Writerside documentation                            |
+| **Monorepo support** | Support for single packages _and_ pnpm monorepos, with prerelease channels (`canary`, `alpha`, `beta`) already wired |
+
+## Repository structure
+
+```text
 .github/
-    ├─ actions/               # Composite actions (install, lint, deploy …)
-    ├─ workflows/             # Re‑usable workflows (workflow.*.yml)
-    └─ templates/             # Issue / PR templates, CODEOWNERS, etc.
-Writerside/                 # Docs sources (built by workflow.document)
-package.json                # Only dev‑dependencies required by actions
+  ├─ actions/            # Re‑usable composite actions
+  ├─ workflows/          # Workflow definitions (CI, release, docs, etc.)
+  └─ templates/          # CI templates
+package.json             # Dev dependencies needed by the actions themselves
 ```
 
-## Getting Started
+## Quick start
 
-1. **Clone the repository**
+### 1 · Clone & install
 
-   ```bash
-   git clone https://github.com/Kurocado-Studio/design-system.git
-   cd design-system
-   ```
+```bash
+git clone https://github.com/Kurocado-Studio/dev-ops.git
+cd dev-ops
+pnpm install
+```
 
-2. **Install dependencies**
+## Using the workflows in another repo
 
-   ```bash
-   pnpm install
-   ```
+```yaml
+name: Example of a CI/CD Pull Request Pipeline
 
-3. **Initial setup**
+permissions:
+  contents: write
+  pull-requests: write
 
-   ```bash
-   pnpm run setup
-   ```
+on:
+  pull_request:
 
-   The setup script installs all required packages and runs any additional initialization tasks.
+jobs:
+  lint:
+    uses: kurocado-studio/dev-ops/.github/workflows/workflow.lint.yml@main
+    secrets:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-## Local Development
+  test:
+    needs: lint
+    uses: kurocado-studio/dev-ops/.github/workflows/workflow.test.yml@main
+    secrets:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
 
-- **Lint code**
+For Semantic Release or documentation deployments, simply swap the referenced workflow file
+(`workflow.release.yml`, `workflow.docs.yml`, …).
 
-  ```bash
-  pnpm run prettier:check
-  ```
+## Local development
 
-## Monorepo vs single‑package
+| Command         | Purpose                  |
+| --------------- | ------------------------ |
+| `pnpm run lint` | ESLint + Prettier checks |
 
-Pass `monorepo: true` when calling a workflow for Turborepo caching (commands like
-`pnpm exec turbo run build/test …`). Leave it `false` for classic single‑package repositories.
+## Contributing
 
-## Documentation site
+Pull requests are welcome! Please follow the [contribution guidelines](CONTRIBUTING.md) and make
+sure `pnpm run lint && pnpm run test` passes locally.
 
-The latest documentation for these workflows is deployed to GitHub Pages:
-<https://kurocado-studio.github.io/dev-ops/>
+## License
+
+[MIT](LICENSE) © Carlos Santiago & Kurocado Studio
