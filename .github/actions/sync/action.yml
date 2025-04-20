@@ -30,8 +30,8 @@ runs:
       run: |
         git fetch origin main
         git checkout develop || git checkout -b develop
-        git merge --squash origin/main
-        git commit -m "chore(ci): sync develop with main after release"
+        git merge --ff-only origin/main || echo "Already up to date"
+        git push origin develop
 
     - name: Push develop
       shell: bash
