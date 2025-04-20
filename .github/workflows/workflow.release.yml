@@ -100,14 +100,23 @@ jobs:
           git config user.name  "$actor"
           git config user.email "$actor@users.noreply.github.com"
 
-      - name: Squash‑merge main into develop
+      - name: Prepare
         run: |
           git fetch origin main
-          git checkout develop
-          git merge --squash origin/main
-          git commit -m "chore(ci): sync develop with main after release"
+          git checkout -B sync/develop-from-main
+          git merge --ff-only origin/main || true   # nothing to do = exit 0
+          git diff --quiet origin/develop HEAD && echo "skip=yes" >> $GITHUB_OUTPUT || true
 
-      - name: Push develop
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: git push origin develop
+      # Create PR only when there are new commits
+      - name: Create pull request
+        if: ${{ steps.prepare.outputs.skip != 'yes' }}
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          branch: sync/develop-from-main
+          base: develop
+          commit-message: 'chore(ci): sync develop with main after release'
+          title: 'chore(ci): sync develop with main after release'
+          body: |
+            Automated sync after release workflow.
+            Includes any version bump / changelog updates created on **main**.
