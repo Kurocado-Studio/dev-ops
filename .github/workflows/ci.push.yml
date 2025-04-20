@@ -16,3 +16,11 @@ jobs:
     uses: kurocado-studio/dev-ops/.github/workflows/workflow.lint-format.yml@main
     secrets:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  sync:
+    needs: lint
+    uses: kurocado-studio/dev-ops/.github/workflows/workflow.sync.yml@main
+    with:
+      branch_name: ${{ github.ref_name }}
+    secrets:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
