@@ -90,8 +90,10 @@ jobs:
 
       - name: Set git user
         run: |
-          git config user.name  "${{ github.actor }}"
-          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          # strip anything but alphanumerics, dash, underscore, dot
+          actor=$(echo "${GITHUB_ACTOR}" | sed 's/[^A-Za-z0-9._-]//g')
+          git config user.name  "$actor"
+          git config user.email "$actor@users.noreply.github.com"
 
       - name: Squash‑merge main into develop
         run: |
