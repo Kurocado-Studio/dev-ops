@@ -28,7 +28,7 @@ jobs:
           fetch-depth: 0
 
       - name: Sync branches
-        uses: ./.github/actions/sync
+        uses: kurocado-studio/dev-ops/.github/actions/sync
         with:
           branch_name: ${{ inputs.branch_name }}
           PAT_FORCE_PUSH: ${{ secrets.PAT_FORCE_PUSH }}
