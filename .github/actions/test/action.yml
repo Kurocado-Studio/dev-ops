@@ -1,5 +1,6 @@
-name: 'Vite Test'
-description: 'Runs Vite tests'
+name: Vite Test
+description: Runs Vitest tests and build
+
 inputs:
   monorepo:
     default: 'false'
@@ -7,26 +8,28 @@ inputs:
     required: false
 
 runs:
-  using: 'composite'
+  using: composite
   steps:
-    - name: Vite Test
+    - name: Vitest (monorepo)
+      if: ${{ inputs.monorepo == 'true' }}
       shell: bash
       run: |
-        if [ "${{ inputs.monorepo }}" = "true" ]; then
-          echo "Running in monorepo mode."
-          pnpm exec turbo run test
-        else
-          echo "Running in single repository mode."
-           pnpm test
-        fi
+        pnpm exec turbo run test
+
+    - name: Vitest
+      if: ${{ inputs.monorepo != 'true' }}
+      shell: bash
+      run: |
+        pnpm test
+
+    - name: Build (monorepo)
+      if: ${{ inputs.monorepo == 'true' }}
+      shell: bash
+      run: |
+        pnpm exec turbo run build
 
     - name: Build
+      if: ${{ inputs.monorepo != 'true' }}
       shell: bash
       run: |
-        if [ "${{ inputs.monorepo }}" = "true" ]; then
-          echo "Running in monorepo mode."
-          pnpm exec turbo run build
-        else
-          echo "Running in single repository mode."
-           pnpm build
-        fi
+        pnpm build
