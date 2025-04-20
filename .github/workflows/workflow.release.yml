@@ -22,6 +22,9 @@ on:
       NPM_TOKEN:
         description: 'Token used to publish the package on NPM registry'
         required: true
+      PAT_FORCE_PUSH:
+        description: 'Token used to publish the package on NPM registry'
+        required: true
 
 jobs:
   Checks:
@@ -82,41 +85,11 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-  sync-develop:
+  sync:
     needs: release
-    runs-on: ubuntu-latest
-    if: inputs.branch_name == 'main'
-    steps:
-      - name: Checkout all branches
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GH_TOKEN }}
-          fetch-depth: 0
-
-      - name: Set git user
-        run: |
-          # strip anything but alphanumerics, dash, underscore, dot
-          actor=$(echo "${GITHUB_ACTOR}" | sed 's/[^A-Za-z0-9._-]//g')
-          git config user.name  "$actor"
-          git config user.email "$actor@users.noreply.github.com"
-
-      - name: Prepare
-        run: |
-          git fetch origin main
-          git checkout -B sync/develop-from-main
-          git merge --ff-only origin/main || true   # nothing to do = exit 0
-          git diff --quiet origin/develop HEAD && echo "skip=yes" >> $GITHUB_OUTPUT || true
-
-      # Create PR only when there are new commits
-      - name: Create pull request
-        if: ${{ steps.prepare.outputs.skip != 'yes' }}
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ secrets.GH_TOKEN }}
-          branch: sync/develop-from-main
-          base: develop
-          commit-message: 'chore(ci): sync develop with main after release'
-          title: 'chore(ci): sync develop with main after release'
-          body: |
-            Automated sync after release workflow.
-            Includes any version bump / changelog updates created on **main**.
+    uses: kurocado-studio/dev-ops/.github/workflows/workflow.sync.yml@main
+    with:
+      branch_name: ${{ github.ref_name }}
+    secrets:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      PAT_FORCE_PUSH: ${{ secrets.PAT_FORCE_PUSH }}
