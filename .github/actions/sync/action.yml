@@ -12,12 +12,6 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Skip if not on main
-      shell: bash
-      run: |
-        echo "Branch is '${{ inputs.branch_name }}' – nothing to sync."
-        exit 0
-
     - name: Checkout
       uses: actions/checkout@v4
       with:
