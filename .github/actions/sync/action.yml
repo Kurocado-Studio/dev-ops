@@ -1,0 +1,46 @@
+name: 'Sync develop'
+description: 'Syncs main and develop after a release'
+
+inputs:
+  branch_name:
+    description: 'Branch that triggered the caller workflow (typically `main` or `release/*`).'
+    required: true
+  GH_TOKEN:
+    description: 'GitHub token with write access to push to develop'
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Skip if not on main
+      shell: bash
+      run: |
+        echo "Branch is '${{ inputs.branch_name }}' – nothing to sync."
+        exit 0
+
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        token: ${{ inputs.GH_TOKEN }}
+        fetch-depth: 0
+
+    - name: Configure git author
+      shell: bash
+      run: |
+        actor=$(echo "${GITHUB_ACTOR}" | sed 's/[^A-Za-z0-9._-]//g')
+        git config user.name  "$actor"
+        git config user.email "$actor@users.noreply.github.com"
+
+    - name: Squash‑merge main into develop
+      shell: bash
+      run: |
+        git fetch origin main
+        git checkout develop || git checkout -b develop
+        git merge --squash origin/main
+        git commit -m "chore(ci): sync develop with main after release"
+
+    - name: Push develop
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.GH_TOKEN }}
+      run: git push origin develop
