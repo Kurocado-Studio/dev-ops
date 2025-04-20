@@ -5,7 +5,7 @@ inputs:
   branch_name:
     description: 'Branch that triggered the caller workflow (typically `main` or `release/*`).'
     required: true
-  GH_TOKEN:
+  PAT_FORCE_PUSH:
     description: 'GitHub token with write access to push to develop'
     required: true
 
@@ -15,7 +15,7 @@ runs:
     - name: Checkout
       uses: actions/checkout@v4
       with:
-        token: ${{ inputs.GH_TOKEN }}
+        token: ${{ inputs.PAT_FORCE_PUSH }}
         fetch-depth: 0
 
     - name: Configure git author
@@ -36,5 +36,5 @@ runs:
     - name: Push develop
       shell: bash
       env:
-        GITHUB_TOKEN: ${{ inputs.GH_TOKEN }}
+        GITHUB_TOKEN: ${{ inputs.PAT_FORCE_PUSH }}
       run: git push origin develop

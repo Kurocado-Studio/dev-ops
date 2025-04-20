@@ -24,3 +24,4 @@ jobs:
       branch_name: ${{ github.ref_name }}
     secrets:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      PAT_FORCE_PUSH: ${{ secrets.PAT_FORCE_PUSH }}

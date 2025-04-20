@@ -13,6 +13,8 @@ on:
     secrets:
       GH_TOKEN:
         required: true
+      PAT_FORCE_PUSH:
+        required: true
 
 jobs:
   sync-develop:
@@ -29,4 +31,4 @@ jobs:
         uses: ./.github/actions/sync
         with:
           branch_name: ${{ inputs.branch_name }}
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          PAT_FORCE_PUSH: ${{ secrets.PAT_FORCE_PUSH }}
