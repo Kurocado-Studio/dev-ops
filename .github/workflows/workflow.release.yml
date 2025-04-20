@@ -49,7 +49,7 @@ jobs:
           fetch-depth: 0
 
       - name: Install
-        uses: kurocado-studio/dev-ops/.github/actions/install@main
+        uses: ./.github/actions/install
         with:
           monorepo: ${{ inputs.monorepo }}
 

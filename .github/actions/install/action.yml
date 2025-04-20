@@ -19,13 +19,15 @@ runs:
       run: |
         npm install -g pnpm
 
-    - name: Install dependencies
+    - name: Install dependencies (monorepo)
+      if: ${{ inputs.monorepo == 'true' }}
       shell: bash
       run: |
-        if [ "${{ inputs.monorepo }}" = "true" ]; then
-          echo "Running in monorepo mode."
-          pnpm install && pnpm exec turbo run setup
-        else
-          echo "Running in single repository mode."
-          pnpm install --frozen-lockfile --prod=false
-        fi
+        pnpm install
+        pnpm exec turbo run setup
+
+    - name: Install dependencies
+      if: ${{ inputs.monorepo != 'true' }}
+      shell: bash
+      run: |
+        pnpm install --frozen-lockfile --prod=false

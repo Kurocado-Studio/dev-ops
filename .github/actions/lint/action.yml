@@ -1,5 +1,5 @@
-name: 'Lint Code'
-description: 'Runs Commitlint, ESLint, TS Check and Prettier to ensure code quality.'
+name: Lint Code
+description: Runs Commitlint, ESLint, TS check and Prettier to ensure code quality.
 
 inputs:
   monorepo:
@@ -8,42 +8,45 @@ inputs:
     required: false
 
 runs:
-  using: 'composite'
+  using: composite
   steps:
     - name: Commitlint
       shell: bash
       run: |
         git log -1 --pretty=%B | pnpm exec commitlint
 
-    - name: ESLint
+    - name: ESLint (monorepo)
+      if: ${{ inputs.monorepo == 'true' }}
       shell: bash
       run: |
-        if [ "${{ inputs.monorepo }}" = "true" ]; then
-          echo "Running in monorepo mode."
-          pnpm exec turbo run lint
-        else
-          echo "Running in single repository mode."
-           pnpm eslint . --max-warnings=0
-        fi
+        pnpm exec turbo run lint
 
-    - name: TS Check
+    - name: ESLint
+      if: ${{ inputs.monorepo != 'true' }}
       shell: bash
       run: |
-        if [ "${{ inputs.monorepo }}" = "true" ]; then
-          echo "Running in monorepo mode."
-          pnpm exec turbo run typecheck
-        else
-          echo "Running in single repository mode."
-           tsc --noEmit true
-        fi
+        pnpm eslint . --max-warnings=0
+
+    - name: TS check (monorepo)
+      if: ${{ inputs.monorepo == 'true' }}
+      shell: bash
+      run: |
+        pnpm exec turbo run typecheck
+
+    - name: TS check
+      if: ${{ inputs.monorepo != 'true' }}
+      shell: bash
+      run: |
+        tsc --noEmit --pretty
+
+    - name: Prettier (monorepo)
+      if: ${{ inputs.monorepo == 'true' }}
+      shell: bash
+      run: |
+        pnpm exec turbo run prettier:check
 
     - name: Prettier
+      if: ${{ inputs.monorepo != 'true' }}
       shell: bash
       run: |
-        if [ "${{ inputs.monorepo }}" = "true" ]; then
-          echo "Running in monorepo mode."
-          pnpm exec turbo run prettier:check
-        else
-          echo "Running in single repository mode."
-           pnpm prettier --check .
-        fi
+        pnpm prettier --check .

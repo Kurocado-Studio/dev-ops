@@ -35,6 +35,6 @@ jobs:
           fetch-depth: 0
 
       - name: Deploy
-        uses: kurocado-studio/dev-ops/.github/actions/deploy@main
+        uses: ./.github/actions/deploy
         with:
           FLY_API_TOKEN: '${{ secrets.FLY_API_TOKEN }}'
