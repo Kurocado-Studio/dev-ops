@@ -67,17 +67,11 @@ jobs:
 For Semantic Release or documentation deployments, simply swap the referenced workflow file
 (`workflow.release.yml`, `workflow.docs.yml`, …).
 
-## Local development
-
-| Command         | Purpose                  |
-| --------------- | ------------------------ |
-| `pnpm run lint` | ESLint + Prettier checks |
-
 ## Contributing
 
-Pull requests are welcome! Please follow the [contribution guidelines](CONTRIBUTING.md) and make
-sure `pnpm run lint && pnpm run test` passes locally.
+Pull requests are welcome! Please follow the
+[contribution guidelines](https://github.com/Kurocado-Studio/.github/blob/main/CONTRIBUTING.md).
 
 ## License
 
-[MIT](LICENSE) © Carlos Santiago & Kurocado Studio
+[MIT](LICENSE) © Kurocado Studio

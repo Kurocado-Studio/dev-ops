@@ -53,26 +53,31 @@ jobs:
         with:
           monorepo: ${{ inputs.monorepo }}
 
-      - name: Build
+      - name: Build (monorepo)
+        if: ${{ inputs.monorepo == 'true' }}
+        shell: bash
         run: |
-          if [ "${{ inputs.monorepo }}" = "true" ]; then
-            echo "Running in monorepo mode."
-            pnpm exec turbo run build
-          else
-            echo "Running in single repository mode."
-             pnpm build
-          fi
+          pnpm exec turbo run build
+
+      - name: Build
+        if: ${{ inputs.monorepo != 'true' }}
+        shell: bash
+        run: |
+          pnpm build
+
+      - name: Release (monorepo)
+        id: semantic_release
+        if: ${{ inputs.monorepo == 'true' }}
+        shell: bash
+        run: pnpm semantic-release
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Release
-        id: semantic_release
-        run: |
-          if [ "${{ inputs.monorepo }}" = "true" ]; then
-            echo "Running in monorepo mode."
-            pnpm semantic-release
-          else
-            echo "Running in single repository mode."
-             npx semantic-release
-          fi
+        if: ${{ inputs.monorepo != 'true' }}
+        shell: bash
+        run: npx semantic-release
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
