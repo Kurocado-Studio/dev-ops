@@ -38,8 +38,8 @@ jobs:
         inputs.branch_name == 'main' ||
         inputs.branch_name == 'alpha' ||
         inputs.branch_name == 'beta' ||
-        inputs.branch_name == 'canary' ||
-        inputs.branch_name == 'pre/rc'
+        inputs.branch_name == 'develop' ||
+        inputs.branch_name == 'pre'
       )
     steps:
       - name: Checkout
@@ -76,3 +76,33 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  sync-develop:
+    needs: release
+    runs-on: ubuntu-latest
+    if: inputs.branch_name == 'main'
+    steps:
+      - name: Checkout all branches
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          fetch-depth: 0
+
+      - name: Set git user
+        run: |
+          # strip anything but alphanumerics, dash, underscore, dot
+          actor=$(echo "${GITHUB_ACTOR}" | sed 's/[^A-Za-z0-9._-]//g')
+          git config user.name  "$actor"
+          git config user.email "$actor@users.noreply.github.com"
+
+      - name: Squash‑merge main into develop
+        run: |
+          git fetch origin main
+          git checkout develop
+          git merge --squash origin/main
+          git commit -m "chore(ci): sync develop with main after release"
+
+      - name: Push develop
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: git push origin develop
