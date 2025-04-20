@@ -16,11 +16,3 @@ jobs:
     uses: kurocado-studio/dev-ops/.github/workflows/workflow.lint-format.yml@main
     secrets:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  document:
-    needs: lint
-    uses: kurocado-studio/dev-ops/.github/workflows/workflow.document.yml@main
-    secrets:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    with:
-      instance_id: dcs
