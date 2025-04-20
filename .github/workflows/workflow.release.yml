@@ -76,3 +76,31 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  sync-develop:
+    needs: release
+    runs-on: ubuntu-latest
+    if: inputs.branch_name == 'main'
+    steps:
+      - name: Checkout all branches
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          fetch-depth: 0
+
+      - name: Set git user
+        run: |
+          git config user.name  "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+
+      - name: Squash‑merge main into develop
+        run: |
+          git fetch origin main
+          git checkout develop
+          git merge --squash origin/main
+          git commit -m "chore(ci): sync develop with main after release"
+
+      - name: Push develop
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: git push origin develop
