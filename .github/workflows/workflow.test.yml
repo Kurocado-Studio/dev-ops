@@ -24,11 +24,11 @@ jobs:
           fetch-depth: 0
 
       - name: Install Dependencies
-        uses: kurocado-studio/dev-ops/.github/actions/install@main
+        uses: ./.github/actions/install
         with:
           monorepo: ${{ inputs.monorepo }}
 
       - name: Test
-        uses: kurocado-studio/dev-ops/.github/actions/test@main
+        uses: ./.github/actions/test
         with:
           monorepo: ${{ inputs.monorepo }}
