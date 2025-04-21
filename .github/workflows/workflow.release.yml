@@ -57,20 +57,20 @@ jobs:
           monorepo: ${{ inputs.monorepo }}
 
       - name: Build (monorepo)
-        if: ${{ inputs.monorepo == 'true' }}
+        if: ${{ inputs.monorepo == true }}
         shell: bash
         run: |
           pnpm exec turbo run build
 
       - name: Build
-        if: ${{ inputs.monorepo != 'true' }}
+        if: ${{ inputs.monorepo != true }}
         shell: bash
         run: |
           pnpm build
 
       - name: Release (monorepo)
         id: semantic_release
-        if: ${{ inputs.monorepo == 'true' }}
+        if: ${{ inputs.monorepo == true }}
         shell: bash
         run: pnpm semantic-release --ignore-private-packages
         env:
@@ -78,9 +78,9 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Release
-        if: ${{ inputs.monorepo != 'true' }}
+        if: ${{ inputs.monorepo != true }}
         shell: bash
-        run: npx semantic-release
+        run: npx semantic-release --ignore-private-packages
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
