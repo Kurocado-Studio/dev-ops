@@ -72,7 +72,7 @@ jobs:
         id: semantic_release
         if: ${{ inputs.monorepo == 'true' }}
         shell: bash
-        run: pnpm semantic-release
+        run: pnpm semantic-release --ignore-private-packages
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
