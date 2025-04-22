@@ -4,7 +4,6 @@ description: Runs Commitlint, ESLint, TS check and Prettier to ensure code quali
 inputs:
   monorepo:
     default: 'false'
-    description: "Set mode to 'monorepo' or 'single'."
     required: false
 
 runs:

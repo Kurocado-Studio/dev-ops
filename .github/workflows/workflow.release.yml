@@ -12,7 +12,6 @@ on:
         type: string
       monorepo:
         default: false
-        description: "Set mode to 'monorepo' or 'single'."
         required: false
         type: boolean
     secrets:
@@ -66,6 +65,7 @@ jobs:
         if: ${{ inputs.monorepo != 'true' }}
         shell: bash
         run: |
+          echo "Branch name is: ${{ inputs.monorepo }}"
           pnpm build
 
       - name: Release (monorepo)

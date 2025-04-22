@@ -4,7 +4,6 @@ description: Runs Vitest tests and build
 inputs:
   monorepo:
     default: 'false'
-    description: "Set mode to 'monorepo' or 'single'."
     required: false
 
 runs:

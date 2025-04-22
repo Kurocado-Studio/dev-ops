@@ -9,7 +9,6 @@ on:
     inputs:
       monorepo:
         default: false
-        description: "Set mode to 'monorepo' or 'single'."
         required: false
         type: boolean
 
