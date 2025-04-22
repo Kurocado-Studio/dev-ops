@@ -55,6 +55,9 @@ jobs:
         with:
           monorepo: ${{ inputs.monorepo }}
 
+      - name: Debug Monorepo Input
+        run: echo "Is monorepo true? ${{ inputs.monorepo }}"
+
       - name: Build (monorepo)
         if: ${{ inputs.monorepo == 'true' }}
         shell: bash
@@ -65,7 +68,6 @@ jobs:
         if: ${{ inputs.monorepo != 'true' }}
         shell: bash
         run: |
-          echo "Branch name is: ${{ inputs.monorepo }}"
           pnpm build
 
       - name: Release (monorepo)
