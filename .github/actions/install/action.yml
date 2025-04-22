@@ -19,14 +19,14 @@ runs:
         npm install -g pnpm
 
     - name: Install dependencies (monorepo)
-      if: ${{ inputs.monorepo == 'true' }}
+      if: ${{ format('{0}', inputs.monorepo) == 'true' }}
       shell: bash
       run: |
         pnpm install
         pnpm exec turbo run setup
 
     - name: Install dependencies
-      if: ${{ inputs.monorepo != 'true' }}
+      if: ${{ format('{0}', inputs.monorepo) != 'true' }}
       shell: bash
       run: |
         pnpm install --frozen-lockfile --prod=false

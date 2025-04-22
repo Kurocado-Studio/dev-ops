@@ -59,13 +59,13 @@ jobs:
         run: echo "Is monorepo true? ${{ inputs.monorepo }}"
 
       - name: Build (monorepo)
-        if: ${{ inputs.monorepo == 'true' }}
+        if: ${{ format('{0}', inputs.monorepo) == 'true' }}
         shell: bash
         run: |
           pnpm exec turbo run build
 
       - name: Build
-        if: ${{ inputs.monorepo != 'true' }}
+        if: ${{ format('{0}', inputs.monorepo) != 'true' }}
         shell: bash
         run: |
           pnpm build
