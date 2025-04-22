@@ -10,25 +10,25 @@ runs:
   using: composite
   steps:
     - name: Vitest (monorepo)
-      if: ${{ inputs.monorepo == true }}
+      if: ${{ inputs.monorepo == 'true' }}
       shell: bash
       run: |
         pnpm exec turbo run test
 
     - name: Vitest
-      if: ${{ inputs.monorepo != true }}
+      if: ${{ inputs.monorepo != 'true' }}
       shell: bash
       run: |
         pnpm test
 
     - name: Build (monorepo)
-      if: ${{ inputs.monorepo == true }}
+      if: ${{ inputs.monorepo == 'true' }}
       shell: bash
       run: |
         pnpm exec turbo run build
 
     - name: Build
-      if: ${{ inputs.monorepo != true }}
+      if: ${{ inputs.monorepo != 'true' }}
       shell: bash
       run: |
         pnpm build

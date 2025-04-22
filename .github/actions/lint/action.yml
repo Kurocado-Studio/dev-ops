@@ -15,37 +15,37 @@ runs:
         git log -1 --pretty=%B | pnpm exec commitlint
 
     - name: ESLint (monorepo)
-      if: ${{ inputs.monorepo == true }}
+      if: ${{ inputs.monorepo == 'true' }}
       shell: bash
       run: |
         pnpm exec turbo run lint
 
     - name: ESLint
-      if: ${{ inputs.monorepo != true }}
+      if: ${{ inputs.monorepo != 'true' }}
       shell: bash
       run: |
         pnpm eslint . --max-warnings=0
 
     - name: TS check (monorepo)
-      if: ${{ inputs.monorepo == true }}
+      if: ${{ inputs.monorepo == 'true' }}
       shell: bash
       run: |
         pnpm exec turbo run typecheck
 
     - name: TS check
-      if: ${{ inputs.monorepo != true }}
+      if: ${{ inputs.monorepo != 'true' }}
       shell: bash
       run: |
         tsc --noEmit --pretty
 
     - name: Prettier (monorepo)
-      if: ${{ inputs.monorepo == true }}
+      if: ${{ inputs.monorepo == 'true' }}
       shell: bash
       run: |
         pnpm exec turbo run prettier:check
 
     - name: Prettier
-      if: ${{ inputs.monorepo != true }}
+      if: ${{ inputs.monorepo != 'true' }}
       shell: bash
       run: |
         pnpm prettier --check .
