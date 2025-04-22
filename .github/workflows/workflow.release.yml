@@ -56,7 +56,7 @@ jobs:
           monorepo: ${{ inputs.monorepo }}
 
       - name: Debug Monorepo Input
-        run: echo "Is monorepo true? ${{ inputs.monorepo }}"
+        run: echo "Is monorepo true? ${{ format('{0}', inputs.monorepo) }}"
 
       - name: Build (monorepo)
         if: ${{ format('{0}', inputs.monorepo) == 'true' }}
