@@ -12,7 +12,6 @@ on:
         type: string
       monorepo:
         default: false
-        description: "Set mode to 'monorepo' or 'single'."
         required: false
         type: boolean
     secrets:
@@ -55,6 +54,9 @@ jobs:
         uses: kurocado-studio/dev-ops/.github/actions/install@main
         with:
           monorepo: ${{ inputs.monorepo }}
+
+      - name: Debug Monorepo Input
+        run: echo "Is monorepo true? ${{ inputs.monorepo }}"
 
       - name: Build (monorepo)
         if: ${{ inputs.monorepo == true }}
