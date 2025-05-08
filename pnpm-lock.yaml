@@ -18,8 +18,8 @@ importers:
         specifier: 2.5.2
         version: 2.5.2(4ticr7zjk2boalfabcm2twc5tq)
       commitlint:
-        specifier: 19.8.0
-        version: 19.8.0(@types/node@22.13.14)(typescript@5.8.2)
+        specifier: 19.8.1
+        version: 19.8.1(@types/node@22.13.14)(typescript@5.8.2)
       eslint:
         specifier: 9.26.0
         version: 9.26.0(jiti@2.4.2)
@@ -263,10 +263,6 @@ packages:
 
   '@commitlint/top-level@19.8.1':
     resolution: {integrity: sha512-Ph8IN1IOHPSDhURCSXBz44+CIu+60duFwRsg6HqaISFHQHbmBtxVw4ZrFNIYUzEP7WwrNPxa2/5qJ//NK1FGcw==}
-    engines: {node: '>=v18'}
-
-  '@commitlint/types@19.8.0':
-    resolution: {integrity: sha512-LRjP623jPyf3Poyfb0ohMj8I3ORyBDOwXAgxxVPbSD0unJuW2mJWeiRfaQinjtccMqC5Wy1HOMfa4btKjbNxbg==}
     engines: {node: '>=v18'}
 
   '@commitlint/types@19.8.1':
@@ -2246,8 +2242,8 @@ packages:
     resolution: {integrity: sha512-/rFeCpNJQbhSZjGVwO9RFV3xPqbnERS8MmIQzCtD/zl6gpJuV/bMLuN92oG3F7d8oDEHHRrujSXNUr8fpjntKw==}
     engines: {node: '>=18'}
 
-  commitlint@19.8.0:
-    resolution: {integrity: sha512-O5waRm0RsjH1g2sT4ifTV58sBYW3wPjfclsdicj1NWUyF91aF0fSqFgKC8EEOUi9RRLKBOhlJarS6V1jWIUx1Q==}
+  commitlint@19.8.1:
+    resolution: {integrity: sha512-j7jojdmHrVOZ16gnjK2nbQuzdwA9TpxS9iNb9Q9QS3ytgt3JZVIGmsNbCuhmnsJWGspotlQ34yH8n1HvIKImiQ==}
     engines: {node: '>=v18'}
     hasBin: true
 
@@ -6347,11 +6343,6 @@ snapshots:
     dependencies:
       find-up: 7.0.0
 
-  '@commitlint/types@19.8.0':
-    dependencies:
-      '@types/conventional-commits-parser': 5.0.1
-      chalk: 5.4.1
-
   '@commitlint/types@19.8.1':
     dependencies:
       '@types/conventional-commits-parser': 5.0.1
@@ -8500,10 +8491,10 @@ snapshots:
 
   commander@13.1.0: {}
 
-  commitlint@19.8.0(@types/node@22.13.14)(typescript@5.8.2):
+  commitlint@19.8.1(@types/node@22.13.14)(typescript@5.8.2):
     dependencies:
       '@commitlint/cli': 19.8.1(@types/node@22.13.14)(typescript@5.8.2)
-      '@commitlint/types': 19.8.0
+      '@commitlint/types': 19.8.1
     transitivePeerDependencies:
       - '@types/node'
       - typescript
